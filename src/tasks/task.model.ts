@@ -3,6 +3,7 @@ export interface Task {
   title: string;
   description: string;
   status: TaskStatus;
+  finishedBy: string;
 }
 
 export enum TaskStatus {
