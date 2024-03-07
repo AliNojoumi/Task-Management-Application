@@ -1,4 +1,5 @@
 export interface User {
+  id: string;
   name: string;
   password: string;
   email: string;
@@ -6,6 +7,7 @@ export interface User {
 }
 
 export enum UserStatus {
-  ACTIVE = 'ACTIVE',
-  NOTACTIVE = 'NOT_ACTIVE',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  PENDING = 'pending',
 }
