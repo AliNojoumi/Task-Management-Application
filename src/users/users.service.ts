@@ -35,4 +35,14 @@ export class UsersService {
       return foundUser;
     }
   }
+
+  deleteUserById(id: string): void {
+    const foundUser = this.users.find((user) => user.id === id);
+
+    if (!foundUser) {
+      throw new NotFoundException('User does not exist!');
+    } else {
+      this.users = this.users.filter((user) => user.id !== id);
+    }
+  }
 }
