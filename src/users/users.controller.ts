@@ -27,10 +27,10 @@ export class UsersController {
   }
 
   @Get()
-  getUsers(@Query() getUsersWithFilterDto: GetUsersWithFilter): User[] {
-    //if we have any filters defined, call usersService.getUsersWithFilters
-    if (Object.keys(getUsersWithFilterDto).length) {
-      return this.userService.getUsersWithFilter(getUsersWithFilterDto);
+  getUsers(@Query() getUsersWithFilter: GetUsersWithFilter): User[] {
+    //if we have any filters defined, call usersService.getUsersWithFilter
+    if (Object.keys(getUsersWithFilter).length) {
+      return this.userService.getUsersWithFilter(getUsersWithFilter);
     } else {
       //otherwise, just get all users
       return this.userService.getAllUsers();

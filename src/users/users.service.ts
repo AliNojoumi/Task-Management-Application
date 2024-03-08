@@ -37,25 +37,21 @@ export class UsersService {
     }
   }
 
-  getUsersWithFilter(getUserWithFliterDto: GetUsersWithFilter): User[] {
-    const { name, email } = getUserWithFliterDto;
+  getUsersWithFilter(getUsersWithFilter: GetUsersWithFilter): User[] {
+    const { name, email } = getUsersWithFilter;
 
     let users = this.getAllUsers();
     if (name || email) {
-      users = users.filter((user) => {
-        if (user.name.includes(name) || user.email.includes(email)) {
-          return true;
-        } else {
-          return false;
-        }
-      });
+      users = users.filter(
+        (user) => user.name.includes(name) || user.email.includes(email),
+      );
 
-      if (users.length == 0) {
+      if (users.length === 0) {
         throw new NotFoundException('Could not find!');
-      } else {
-        return users;
       }
     }
+
+    return users;
   }
 
   deleteUserById(id: string): void {
