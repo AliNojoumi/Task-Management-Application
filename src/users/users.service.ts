@@ -41,7 +41,7 @@ export class UsersService {
     const { name, email } = getUserWithFliterDto;
 
     let users = this.getAllUsers();
-    if (name) {
+    if (name || email) {
       users = users.filter((user) => {
         if (user.name.includes(name) || user.email.includes(email)) {
           return true;
@@ -50,7 +50,11 @@ export class UsersService {
         }
       });
 
-      return users;
+      if (users.length == 0) {
+        throw new NotFoundException('Could not find!');
+      } else {
+        return users;
+      }
     }
   }
 
