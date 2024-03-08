@@ -1,7 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.model';
 import { CreateUserDto } from './user-dto/create-user.dto';
+import { GetUsersWithFilter } from './user-dto/get-users-filter.dto';
 
 @Controller('users')
 export class UsersController {
@@ -15,6 +24,17 @@ export class UsersController {
   @Get('/:id')
   getUserById(@Param('id') id: string): User {
     return this.userService.getUserById(id);
+  }
+
+  @Get()
+  getUsers(@Query() getUsersWithFilterDto: GetUsersWithFilter): User[] {
+    //if we have any filters defined, call usersService.getUsersWithFilters
+    if (Object.keys(getUsersWithFilterDto).length) {
+      return this.userService.getUsersWithFilter(getUsersWithFilterDto);
+    } else {
+      //otherwise, just get all users
+      return this.userService.getAllUsers();
+    }
   }
 
   @Post()

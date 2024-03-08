@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user.model';
 import { CreateUserDto } from './user-dto/create-user.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { GetUsersWithFilter } from './user-dto/get-users-filter.dto';
 
 @Injectable()
 export class UsersService {
@@ -33,6 +34,23 @@ export class UsersService {
       throw new NotFoundException(`User with this id : "${id}" not found`);
     } else {
       return foundUser;
+    }
+  }
+
+  getUsersWithFilter(getUserWithFliterDto: GetUsersWithFilter): User[] {
+    const { name, email } = getUserWithFliterDto;
+
+    let users = this.getAllUsers();
+    if (name) {
+      users = users.filter((user) => {
+        if (user.name.includes(name) || user.email.includes(email)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      return users;
     }
   }
 
