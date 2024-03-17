@@ -71,6 +71,14 @@ export class TasksService {
     }
   }
 
+  async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+    const task = await this.getTaskById(id);
+
+    task.status = status;
+    await this.tasksRepository.save(task);
+
+    return task;
+  }
   // createTask(createTaskDto: CreateTaskDto): Task {
   //   const { title, description, finishedBy, status } = createTaskDto;
   //   const task: Task = {
